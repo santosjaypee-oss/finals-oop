@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Wishlist Shop | Premium Shopping</title>
+
+<style>
+
+/* =========================
+   GLOBAL SETTINGS
+========================= */
+
+:root {
+    --primary: #7048e8;
+    --secondary: #a78bfa;
+    --dark: #241b45;
+    --background: #f5f4fa;
+    --card: #ffffff;
+    --text: #242238;
+    --muted: #777;
+    --border: #e9e6f2;
+    --success: #16a36a;
+    --danger: #ef476f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    transition: .3s;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 9px;
+    padding: 11px 15px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    opacity: .9;
+}
+
+.primary {
+    background: var(--primary);
+    color: white;
+}
+
+.secondary {
+    background: #eee9ff;
+    color: var(--primary);
+}
+
+.danger {
+    background: #ffe8ee;
+    color: var(--danger);
+}
+
+input, textarea, select {
+    font-family: inherit;
+}
+
+/* =========================
+   OPENING ANIMATION
+========================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg,#241b45,#7048e8,#a78bfa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    z-index: 9999;
+    animation: introFade 1s ease 2.8s forwards;
+}
+
+.intro-logo {
+    font-size: 42px;
+    font-weight: 900;
+    animation: logoPop 1.2s ease infinite alternate;
+}
+
+.intro-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+    animation: bounce 1s infinite alternate;
+}
+
+.intro-text {
+    margin-top: 15px;
+    letter-spacing: 4px;
+    font-size: 12px;
+}
+
+.loader {
+    width: 180px;
+    height: 5px;
+    background: #ffffff55;
+    border-radius: 20px;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.loader::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 0;
+    background: white;
+    animation: loading 2.5s forwards;
+}
+
+@keyframes loading {
+    to { width: 100%; }
+}
+
+@keyframes logoPop {
+    from { transform: scale(.9); }
+    to { transform: scale(1.08); }
+}
+
+@keyframes bounce {
+    to { transform: translateY(-12px); }
+}
+
+@keyframes introFade {
+    to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 11px;
+    font-size: 13px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: var(--card);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 15px #0001;
+}
+
+.header {
+    max-width: 1250px;
+    margin: auto;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #ff6695;
+}
+
+.search {
+    display: flex;
+    flex: 1;
+}
+
+.search input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px 0 0 9px;
+    outline: none;
+    background: var(--background);
+    color: var(--text);
+}
+
+.search button {
+    background: var(--primary);
+    color: white;
+    border-radius: 0 9px 9px 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.header-actions button {
+    background: var(--background);
+    color: var(--text);
+    font-size: 16px;
+}
+
+.badge-count {
+    background: var(--danger);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.nav button {
+    background: transparent;
+    color: var(--muted);
+}
+
+.nav button:hover {
+    color: var(--primary);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1250px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+    background: linear-gradient(120deg,#241b45,#7048e8,#a78bfa);
+    color: white;
+    padding: 55px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    gap: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(30px,5vw,52px);
+    margin: 18px 0;
+}
+
+.hero p {
+    max-width: 550px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.hero button {
+    background: white;
+    color: var(--primary);
+    padding: 14px 22px;
+}
+
+.hero-icon {
+    font-size: 130px;
+    animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+    50% { transform: translateY(-15px); }
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    margin: 35px 0;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 12px;
+}
+
+.category {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 20px 8px;
+}
+
+.category span {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.category.active {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background: #eee9ff;
+}
+
+/* =========================
+   FLASH DEAL
+========================= */
+
+.deal {
+    background: linear-gradient(120deg,#fff0f4,#ffe1ec);
+    padding: 20px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b82c60;
+}
+
+#countdown {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* =========================
+   PRODUCT FILTERS
+========================= */
+
+.filters {
+    display: flex;
+    gap: 8px;
+}
+
+.filters select {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--text);
+}
+
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+}
+
+.product {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.product:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px #0002;
+}
+
+.product-image {
+    height: 210px;
+    background: #f0ecff;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .4s;
+}
+
+.product:hover .product-image img {
+    transform: scale(1.08);
+}
+
+.sale {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--danger);
+    color: white;
+    padding: 6px 9px;
+    border-radius: 5px;
+    font-size: 10px;
+}
+
+.favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    color: var(--danger);
+    border-radius: 50%;
+    font-size: 19px;
+    padding: 8px 11px;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-info h3 {
+    font-size: 15px;
+    min-height: 35px;
+    margin-bottom: 8px;
+}
+
+.rating {
+    color: #e6a21a;
+    font-size: 13px;
+    margin-bottom: 9px;
+}
+
+.price {
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 12px;
+}
+
+.stock {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.product-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.product-actions button {
+    flex: 1;
+    font-size: 12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+footer h2 {
+    color: #b99cff;
+    margin-bottom: 10px;
+}
+
+footer p {
+    margin: 8px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000a;
+    z-index: 500;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.modal-bg.show {
+    display: flex;
+}
+
+.modal {
+    background: var(--card);
+    color: var(--text);
+    width: min(700px,100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 23px;
+    border-radius: 17px;
+    animation: modalPop .25s ease;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close {
+    background: #eee;
+    color: #333;
+}
+
+.cart-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-row img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-info {
+    flex: 1;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity button {
+    background: #eee9ff;
+    color: var(--primary);
+    padding: 6px 10px;
+}
+
+.summary {
+    background: var(--background);
+    padding: 17px;
+    border-radius: 12px;
+    margin-top: 18px;
+}
+
+.summary div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.total {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.field {
+    margin: 14px 0;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--background);
+    color: var(--text);
+}
+
+.field textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px 10px;
+    color: var(--muted);
+}
+
+.order {
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 12px;
+    margin: 12px 0;
+}
+
+.order p {
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+.status {
+    display: inline-block;
+    background: #e6fff2;
+    color: #148653;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%,100px);
+    background: var(--dark);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    z-index: 1000;
+    transition: .3s;
+}
+
+.toast.show {
+    transform: translate(-50%,0);
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+.dark {
+    --background: #151322;
+    --card: #211e32;
+    --text: #f1efff;
+    --muted: #b6b2c9;
+    --border: #37324d;
+}
+
+.dark .product-image {
+    background: #302a48;
+}
+
+.dark .category.active {
+    background: #392d5b;
+}
+
+.dark .close {
+    background: #39344b;
+    color: white;
+}
+
+.dark .deal {
+    background: #392032;
+    color: #ff9ab8;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media(max-width:900px) {
+    .products {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .categories {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+@media(max-width:600px) {
+
+    .header {
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .search {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    .header-actions {
+        margin-left: auto;
+    }
+
+    .header-actions button {
+        padding: 9px;
+        font-size: 14px;
+    }
+
+    .nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 12px;
+    }
+
+    .nav button {
+        white-space: nowrap;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+    .hero-icon {
+        font-size: 55px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2,1fr);
+        gap: 10px;
+    }
+
+    .product-image {
+        height: 140px;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .product-info h3 {
+        font-size: 13px;
+    }
+
+    .price {
+        font-size: 16px;
+    }
+
+    .categories {
+        gap: 7px;
+    }
+
+    .category {
+        font-size: 12px;
+        padding: 12px 5px;
+    }
+
+    .section-title {
+        flex-wrap: wrap;
+    }
+
+    .deal {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .filters {
+        width: 100%;
+    }
+
+    .filters select {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .cart-row {
+        flex-wrap: wrap;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- OPENING ANIMATION -->
+
+<div id="intro">
+
+    <div class="intro-icon">🛍️</div>
+
+    <div class="intro-logo">
+        WISHLIST <span style="color:#ffb4d0">SHOP ♥</span>
+    </div>
+
+    <div class="intro-text">
+        YOUR FAVORITE SHOPPING DESTINATION
+    </div>
+
+    <div class="loader"></div>
+
+</div>
+
+<div class="topbar">
+    🎉 WELCOME TO WISHLIST SHOP — GREAT FINDS, GREAT DEALS!
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="header">
+
+        <div class="logo">
+            WISHLIST <span>SHOP ♥</span>
+        </div>
+
+        <div class="search">
+
+            <input
+                id="searchInput"
+                placeholder="Search your favorite products..."
+                oninput="renderProducts()">
+
+            <button onclick="renderProducts()">🔍</button>
+
+        </div>
+
+        <div class="header-actions">
+
+            <button onclick="toggleDark()" title="Dark Mode">
+                🌙
+            </button>
+
+            <button onclick="openWishlist()" title="Wishlist">
+                ♥ <span class="badge-count" id="wishCount">0</span>
+            </button>
+
+            <button onclick="openCart()" title="Shopping Cart">
+                🛒 <span class="badge-count" id="cartCount">0</span>
+            </button>
+
+            <button onclick="openProfile()" title="My Account">
+                👤
+            </button>
+
+        </div>
+
+    </div>
+
+    <nav class="nav">
+
+        <button onclick="setCategory('All')">🏠 Home</button>
+
+        <button onclick="setCategory('Electronics')">📱 Electronics</button>
+
+        <button onclick="setCategory('Fashion')">👕 Fashion</button>
+
+        <button onclick="setCategory('Accessories')">⌚ Accessories</button>
+
+        <button onclick="setCategory('Lifestyle')">🎒 Lifestyle</button>
+
+        <button onclick="setCategory('Home')">🏡 Home Items</button>
+
+        <button onclick="openOrders()">📦 My Orders</button>
+
+        <button onclick="openAdmin()">🛠 Admin</button>
+
+    </nav>
+
+</header>
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div>
+
+            <span>✨ YOUR WISHLIST, YOUR STYLE</span>
+
+            <h1>
+                Find What You Love.<br>
+                Shop It Your Way.
+            </h1>
+
+            <p>
+                Discover amazing products, trending gadgets,
+                stylish fashion, and everyday essentials.
+                Everything you love in one place!
+            </p>
+
+            <button onclick="scrollProducts()">
+                Explore Products →
+            </button>
+
+        </div>
+
+        <div class="hero-icon">🛍️</div>
+
+    </section>
+
+    <!-- CATEGORIES -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Shop by Category</h2>
+        </div>
+
+        <div class="categories">
+
+            <button class="category active"
+                onclick="setCategory('All',this)">
+                <span>✨</span>
+                All Items
+            </button>
+
+            <button class="category"
+                onclick="setCategory('Electronics',this)">
+                <span>📱</span>
+                Electronics
+            </button>
+
+            <button class="category"
+                onclick="setCategory('Fashion',this)">
+                <span>👕</span>
+                Fashion
+            </button>
+
+            <button class="category"
+                onclick="setCategory('Accessories',this)">
+                <span>⌚</span>
+                Accessories
+            </button>
+
+            <button class="category"
+                onclick="setCategory('Lifestyle',this)">
+                <span>🎒</span>
+                Lifestyle
+            </button>
+
+            <button class="category"
+                onclick="setCategory('Home',this)">
+                <span>🏠</span>
+                Home
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- FLASH DEAL -->
+
+    <section class="section deal">
+
+        <div>
+            <h3>⚡ FLASH DEALS</h3>
+            <p>Special offers on selected products!</p>
+        </div>
+
+        <div>
+            <small>SALE ENDS IN</small>
+            <div id="countdown">05:00:00</div>
+        </div>
+
+    </section>
+
+    <!-- PRODUCTS -->
+
+    <section class="section" id="productsSection">
+
+        <div class="section-title">
+
+            <h2>🛍️ Featured Products</h2>
+
+            <div class="filters">
+
+                <select id="categoryFilter"
+                    onchange="activeCategory=this.value;renderProducts()">
+
+                    <option value="All">All Categories</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Lifestyle">Lifestyle</option>
+                    <option value="Home">Home</option>
+
+                </select>
+
+                <select id="sortFilter" onchange="renderProducts()">
+
+                    <option value="featured">Featured</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                    <option value="rating">Top Rated</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="products" id="productGrid"></div>
+
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h2>WISHLIST SHOP ♥</h2>
+
+    <p>Shop Smart. Save Your Favorites.</p>
+
+    <p>✨ Your satisfaction is our inspiration! ✨</p>
+
+    <br>
+
+    <strong>👑 MADE BY GROUP OF THREE IDIOTS 👑</strong>
+
+    <p><small>School Project Demonstration Only.</small></p>
+
+</footer>
+
+<!-- MODAL -->
+
+<div class="modal-bg" id="modalBg">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">Wishlist Shop</h2>
+
+            <button class="close" onclick="closeModal()">✕</button>
+
+        </div>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =========================
+   PRODUCT DATABASE
+========================= */
+
+const products = [
+
+{
+id:1,
+name:"Premium Wireless Headphones",
+cat:"Electronics",
+price:1299,
+old:1799,
+image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",
+rating:4.9,
+stock:18,
+badge:"BEST SELLER"
+},
+
+{
+id:2,
+name:"Smart Watch Series",
+cat:"Electronics",
+price:1899,
+old:2499,
+image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+rating:4.8,
+stock:12,
+badge:"HOT"
+},
+
+{
+id:3,
+name:"Classic White Sneakers",
+cat:"Fashion",
+price:999,
+old:1399,
+image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+rating:4.7,
+stock:24,
+badge:"SALE"
+},
+
+{
+id:4,
+name:"Everyday T-Shirt",
+cat:"Fashion",
+price:349,
+old:499,
+image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
+rating:4.6,
+stock:40,
+badge:""
+},
+
+{
+id:5,
+name:"Urban Backpack",
+cat:"Lifestyle",
+price:799,
+old:1099,
+image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",
+rating:4.8,
+stock:15,
+badge:"POPULAR"
+},
+
+{
+id:6,
+name:"Polarized Sunglasses",
+cat:"Accessories",
+price:499,
+old:699,
+image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
+rating:4.5,
+stock:21,
+badge:""
+},
+
+{
+id:7,
+name:"Minimalist Wrist Watch",
+cat:"Accessories",
+price:899,
+old:1199,
+image:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600",
+rating:4.7,
+stock:9,
+badge:""
+},
+
+{
+id:8,
+name:"Bluetooth Speaker",
+cat:"Electronics",
+price:699,
+old:999,
+image:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600",
+rating:4.6,
+stock:17,
+badge:"SALE"
+},
+
+{
+id:9,
+name:"Desk Lamp",
+cat:"Home",
+price:599,
+old:799,
+image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600",
+rating:4.4,
+stock:14,
+badge:""
+},
+
+{
+id:10,
+name:"Ceramic Coffee Mug",
+cat:"Home",
+price:199,
+old:299,
+image:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600",
+rating:4.8,
+stock:50,
+badge:""
+},
+
+{
+id:11,
+name:"Gaming Mouse",
+cat:"Electronics",
+price:549,
+old:799,
+image:"https://images.unsplash.com/photo-1527814050087-3793815479db?w=600",
+rating:4.7,
+stock:20,
+badge:"HOT"
+},
+
+{
+id:12,
+name:"Baseball Cap",
+cat:"Fashion",
+price:299,
+old:399,
+image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600",
+rating:4.5,
+stock:30,
+badge:""
+}
+
+];
+
+/* =========================
+   DATA STORAGE
+========================= */
+
+function getData(key, fallback) {
+
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+
+        return value ?? fallback;
+
+    } catch {
+        return fallback;
+    }
+
+}
+
+let cart = getData("ws_cart",[]);
+let wishlist = getData("ws_wish",[]);
+let orders = getData("ws_orders",[]);
+
+let profile = getData("ws_profile",{
+    name:"Guest Shopper",
+    email:"",
+    phone:"",
+    address:""
+});
+
+let activeCategory = "All";
+let voucher = "";
+
+function saveData() {
+
+    localStorage.setItem("ws_cart",JSON.stringify(cart));
+    localStorage.setItem("ws_wish",JSON.stringify(wishlist));
+    localStorage.setItem("ws_orders",JSON.stringify(orders));
+    localStorage.setItem("ws_profile",JSON.stringify(profile));
+
+    updateBadges();
+
+}
+
+function money(amount) {
+
+    return "₱" + Number(amount).toLocaleString("en-PH",{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+    });
+
+}
+
+function updateBadges() {
+
+    document.getElementById("cartCount").textContent =
+    cart.reduce((sum,item)=>sum+item.qty,0);
+
+    document.getElementById("wishCount").textContent =
+    wishlist.length;
+
+}
+
+/* =========================
+   TOAST
+========================= */
+
+function toast(message) {
+
+    const element = document.getElementById("toast");
+
+    element.textContent = message;
+
+    element.classList.add("show");
+
+    setTimeout(()=>{
+        element.classList.remove("show");
+    },2300);
+
+}
+
+/* =========================
+   PRODUCT DISPLAY
+========================= */
+
+function renderProducts() {
+
+    const search = document.getElementById("searchInput")
+    .value.toLowerCase();
+
+    let list = products.filter(product=>{
+
+        const categoryMatch =
+        activeCategory==="All" ||
+        product.cat===activeCategory;
+
+        const searchMatch =
+        product.name.toLowerCase().includes(search);
+
+        return categoryMatch && searchMatch;
+
+    });
+
+    const sort = document.getElementById("sortFilter").value;
+
+    if(sort==="low")
+        list.sort((a,b)=>a.price-b.price);
+
+    if(sort==="high")
+        list.sort((a,b)=>b.price-a.price);
+
+    if(sort==="rating")
+        list.sort((a,b)=>b.rating-a.rating);
+
+    const grid = document.getElementById("productGrid");
+
+    if(!list.length){
+
+        grid.innerHTML=`
+        <div class="empty" style="grid-column:1/-1">
+            <h2>🔍 No Products Found</h2>
+            <p>Try another search.</p>
+        </div>`;
+
+        return;
+
+    }
+
+    grid.innerHTML=list.map(product=>`
+
+        <div class="product">
+
+            <div class="product-image">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                    loading="lazy"
+                    onerror="this.src='https://placehold.co/600x400?text=Wishlist+Shop'">
+
+                ${product.badge?
+                    `<span class="sale">${product.badge}</span>`:""}
+
+                <button class="favorite"
+                    onclick="toggleWishlist(${product.id})">
+
+                    ${wishlist.includes(product.id)?"♥":"♡"}
+
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>${product.name}</h3>
+
+                <div class="rating">
+                    ★★★★★ ${product.rating}
+                </div>
+
+                <div class="price">
+
+                    ${money(product.price)}
+
+                    <span class="old-price">
+                        ${money(product.old)}
+                    </span>
+
+                </div>
+
+                <div class="stock">
+
+                    ${product.stock>5?
+                    "🟢 In Stock":
+                    product.stock>0?
+                    "🟠 Only "+product.stock+" left":
+                    "🔴 Out of Stock"}
+
+                </div>
+
+                <div class="product-actions">
+
+                    <button class="secondary"
+                        onclick="addCart(${product.id})"
+                        ${product.stock===0?"disabled":""}>
+
+                        🛒 Add
+
+                    </button>
+
+                    <button class="primary"
+                        onclick="viewProduct(${product.id})">
+
+                        View
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+function setCategory(category,element) {
+
+    activeCategory=category;
+
+    document.getElementById("categoryFilter").value=category;
+
+    document.querySelectorAll(".category").forEach(button=>{
+        button.classList.remove("active");
+    });
+
+    if(element){
+        element.classList.add("active");
+    }
+
+    else {
+
+        document.querySelectorAll(".category").forEach(button=>{
+            if(button.textContent.trim().includes(
+                category==="All"?"All Items":category
+            )){
+                button.classList.add("active");
+            }
+        });
+
+    }
+
+    renderProducts();
+
+}
+
+function scrollProducts(){
+
+    document.getElementById("productsSection")
+    .scrollIntoView({behavior:"smooth"});
+
+}
+
+/* =========================
+   WISHLIST
+========================= */
+
+function toggleWishlist(id){
+
+    if(wishlist.includes(id)){
+
+        wishlist=wishlist.filter(item=>item!==id);
+
+        toast("Removed from wishlist");
+
+    }else{
+
+        wishlist.push(id);
+
+        toast("Added to wishlist ♥");
+
+    }
+
+    saveData();
+    renderProducts();
+
+}
+
+function openWishlist(){
+
+    const items=products.filter(product=>
+        wishlist.includes(product.id)
+    );
+
+    showModal("♥ MY WISHLIST",items.length?`
+
+        ${items.map(product=>`
+
+            <div class="cart-row">
+
+                <img src="${product.image}" alt="">
+
+                <div class="cart-info">
+
+                    <b>${product.name}</b>
+
+                    <div class="price">
+                        ${money(product.price)}
+                    </div>
+
+                </div>
+
+                <button class="primary"
+                    onclick="addCart(${product.id})">
+
+                    Add
+
+                </button>
+
+                <button class="danger"
+                    onclick="toggleWishlist(${product.id});openWishlist()">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+        `).join("")}
+
+    `:`
+
+        <div class="empty">
+
+            <h1>♥</h1>
+
+            <h3>Your wishlist is empty!</h3>
+
+            <p>Save your favorite products here.</p>
+
+        </div>
+
+    `);
+
+}
+
+/* =========================
+   SHOPPING CART
+========================= */
+
+function addCart(id){
+
+    const product=products.find(p=>p.id===id);
+
+    const item=cart.find(p=>p.id===id);
+
+    if(!product || product.stock<=0){
+
+        toast("Product is out of stock!");
+        return;
+
+    }
+
+    if(item && item.qty>=product.stock){
+
+        toast("Maximum available stock reached!");
+        return;
+
+    }
+
+    if(item){
+        item.qty++;
+    }
+
+    else{
+        cart.push({id:id,qty:1});
+    }
+
+    saveData();
+
+    toast("Product added to cart!");
+
+}
+
+function changeQuantity(id,amount){
+
+    const item=cart.find(p=>p.id===id);
+
+    const product=products.find(p=>p.id===id);
+
+    if(!item || !product) return;
+
+    item.qty=Math.max(1,Math.min(product.stock,item.qty+amount));
+
+    saveData();
+    openCart();
+
+}
+
+function removeCart(id){
+
+    cart=cart.filter(item=>item.id!==id);
+
+    saveData();
+    openCart();
+
+}
+
+function openCart(){
+
+    const items=cart.map(item=>({
+
+        ...item,
+
+        product:products.find(p=>p.id===item.id)
+
+    })).filter(item=>item.product);
+
+    const subtotal=items.reduce(
+        (sum,item)=>sum+item.product.price*item.qty,0
+    );
+
+    const shipping=subtotal===0||subtotal>=1500?0:80;
+
+    const discount=voucher==="WISH10"?subtotal*.10:0;
+
+    const total=subtotal+shipping-discount;
+
+    showModal("🛒 SHOPPING CART",items.length?`
+
+        ${items.map(item=>`
+
+            <div class="cart-row">
+
+                <img src="${item.product.image}" alt="">
+
+                <div class="cart-info">
+
+                    <b>${item.product.name}</b>
+
+                    <div class="price">
+                        ${money(item.product.price)}
+                    </div>
+
+                </div>
+
+                <div class="quantity">
+
+                    <button onclick="changeQuantity(${item.id},-1)">−</button>
+
+                    ${item.qty}
+
+                    <button onclick="changeQuantity(${item.id},1)">+</button>
+
+                </div>
+
+                <button class="danger"
+                    onclick="removeCart(${item.id})">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+        `).join("")}
+
+        <div class="field">
+
+            <label>Voucher Code</label>
+
+            <input id="voucherInput"
+                placeholder="Enter WISH10"
+                value="${voucher}">
+
+            <button class="primary"
+                style="margin-top:8px"
+                onclick="applyVoucher()">
+
+                Apply Voucher
+
+            </button>
+
+        </div>
+
+        <div class="summary">
+
+            <div>
+                <span>Subtotal</span>
+                <b>${money(subtotal)}</b>
+            </div>
+
+            <div>
+                <span>Shipping</span>
+                <b>${shipping===0?"FREE":money(shipping)}</b>
+            </div>
+
+            <div>
+                <span>Discount</span>
+                <b>-${money(discount)}</b>
+            </div>
+
+            <div class="total">
+                <span>Total</span>
+                <span>${money(total)}</span>
+            </div>
+
+            <button class="primary"
+                style="width:100%;margin-top:15px"
+                onclick="checkout()">
+
+                Proceed to Checkout →
+
+            </button>
+
+        </div>
+
+    `:`
+
+        <div class="empty">
+
+            <h1>🛒</h1>
+
+            <h2>Your Cart is Empty</h2>
+
+            <p>Start adding your favorite products!</p>
+
+        </div>
+
+    `);
+
+}
+
+function applyVoucher(){
+
+    const code=document.getElementById("voucherInput")
+    .value.trim().toUpperCase();
+
+    if(code==="WISH10"){
+
+        voucher=code;
+
+        toast("10% discount applied!");
+
+        openCart();
+
+    }
+
+    else{
+
+        toast("Invalid voucher code!");
+
+    }
+
+}
+
+/* =========================
+   PRODUCT DETAILS
+========================= */
+
+function viewProduct(id){
+
+    const product=products.find(p=>p.id===id);
+
+    showModal(product.name,`
+
+        <div style="text-align:center">
+
+            <img
+                src="${product.image}"
+                style="width:100%;max-height:280px;object-fit:contain;border-radius:12px"
+                alt="${product.name}">
+
+            <h2 style="margin:15px 0">
+                ${money(product.price)}
+            </h2>
+
+            <div class="rating">
+                ★★★★★ ${product.rating}
+            </div>
+
+        </div>
+
+        <p><b>Category:</b> ${product.cat}</p>
+
+        <p><b>Available Stock:</b> ${product.stock}</p>
+
+        <p><b>Old Price:</b> ${money(product.old)}</p>
+
+        <br>
+
+        <button class="primary"
+            onclick="addCart(${product.id});closeModal()">
+
+            🛒 Add to Cart
+
+        </button>
+
+        <button class="secondary"
+            onclick="toggleWishlist(${product.id});closeModal()">
+
+            ♥ Add to Wishlist
+
+        </button>
+
+    `);
+
+}
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function checkout(){
+
+    if(!cart.length){
+
+        toast("Your cart is empty!");
+        return;
+
+    }
+
+    showModal("📦 CHECKOUT",`
+
+        <form onsubmit="placeOrder(event)">
+
+            <div class="field">
+
+                <label>Full Name</label>
+
+                <input id="customerName"
+                    value="${profile.name==="Guest Shopper"?"":profile.name}"
+                    required>
+
+            </div>
+
+            <div class="field">
+
+                <label>Mobile Number</label>
+
+                <input id="customerPhone"
+                    type="tel"
+                    placeholder="09XXXXXXXXX"
+                    value="${profile.phone}"
+                    required>
+
+            </div>
+
+            <div class="field">
+
+                <label>Email Address</label>
+
+                <input id="customerEmail"
+                    type="email"
+                    value="${profile.email}"
+                    placeholder="example@email.com">
+
+            </div>
+
+            <div class="field">
+
+                <label>Complete Address</label>
+
+                <textarea id="customerAddress"
+                    required>${profile.address}</textarea>
+
+            </div>
+
+            <div class="field">
+
+                <label>Delivery Method</label>
+
+                <select id="deliveryMethod">
+
+                    <option>Standard Delivery</option>
+
+                    <option>Express Delivery</option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>Payment Method</label>
+
+                <select id="paymentMethod">
+
+                    <option>Cash on Delivery (Demo)</option>
+
+                    <option>GCash (Demo Only)</option>
+
+                    <option>Bank Transfer (Demo Only)</option>
+
+                </select>
+
+            </div>
+
+            <div class="summary">
+
+                <p>
+                    Demo checkout only.
+                    No real payment will be processed.
+                </p>
+
+            </div>
+
+            <br>
+
+            <button class="primary" style="width:100%">
+
+                Confirm Order ✓
+
+            </button>
+
+        </form>
+
+    `);
+
+}
+
+function placeOrder(event){
+
+    event.preventDefault();
+
+    const subtotal=cart.reduce((sum,item)=>{
+
+        const product=products.find(p=>p.id===item.id);
+
+        return sum+product.price*item.qty;
+
+    },0);
+
+    for(const item of cart){
+
+        const product=products.find(p=>p.id===item.id);
+
+        if(!product || product.stock<item.qty){
+
+            toast("Insufficient product stock!");
+
+            return;
+
+        }
+
+    }
+
+    let shipping=subtotal>=1500?0:80;
+
+    const delivery=document.getElementById("deliveryMethod").value;
+
+    if(delivery==="Express Delivery"){
+        shipping+=50;
+    }
+
+    const discount=voucher==="WISH10"?subtotal*.10:0;
+
+    const order={
+
+        id:"WS"+Date.now().toString().slice(-7),
+
+        date:new Date().toLocaleString(),
+
+        items:cart.map(item=>({...item})),
+
+        subtotal:subtotal,
+
+        shipping:shipping,
+
+        discount:discount,
+
+        total:subtotal+shipping-discount,
+
+        status:"Order Placed",
+
+        customer:document.getElementById("customerName").value,
+
+        phone:document.getElementById("customerPhone").value,
+
+        email:document.getElementById("customerEmail").value,
+
+        address:document.getElementById("customerAddress").value,
+
+        payment:document.getElementById("paymentMethod").value,
+
+        delivery:delivery
+
+    };
+
+    cart.forEach(item=>{
+
+        const product=products.find(p=>p.id===item.id);
+
+        product.stock-=item.qty;
+
+    });
+
+    profile={
+
+        name:order.customer,
+
+        phone:order.phone,
+
+        email:order.email,
+
+        address:order.address
+
+    };
+
+    orders.unshift(order);
+
+    cart=[];
+
+    voucher="";
+
+    saveData();
+
+    localStorage.setItem("ws_stock",
+        JSON.stringify(products.map(p=>({id:p.id,stock:p.stock}))
+    ));
+
+    showModal("🎉 ORDER SUCCESSFUL!",`
+
+        <div class="empty">
+
+            <h1 style="font-size:65px">🎉</h1>
+
+            <h2>Thank You For Your Order!</h2>
+
+            <br>
+
+            <p>Order Number:</p>
+
+            <h3>${order.id}</h3>
+
+            <br>
+
+            <p>Total Amount:</p>
+
+            <h2 class="price">${money(order.total)}</h2>
+
+            <br>
+
+            <span class="status">Order Placed</span>
+
+            <br><br>
+
+            <button class="primary"
+                onclick="openOrders()">
+
+                Track My Order
+
+            </button>
+
+        </div>
+
+    `);
+
+    renderProducts();
+
+}
+
+/* =========================
+   ORDER HISTORY
+========================= */
+
+function openOrders(){
+
+    showModal("📦 MY ORDERS",orders.length?`
+
+        ${orders.map(order=>`
+
+            <div class="order">
+
+                <h3>Order #${order.id}</h3>
+
+                <p>${order.date}</p>
+
+                <p>
+                    Customer: <b>${order.customer}</b>
+                </p>
+
+                <p>
+                    Payment: ${order.payment}
+                </p>
+
+                <p>
+                    Delivery: ${order.delivery}
+                </p>
+
+                <p>
+                    Total: <b>${money(order.total)}</b>
+                </p>
+
+                <span class="status">
+                    ${order.status}
+                </span>
+
+                <br><br>
+
+                <button class="secondary"
+                    onclick="trackOrder('${order.id}')">
+
+                    🔎 Track Order
+
+                </button>
+
+                ${order.status==="Order Placed"?`
+
+                    <button class="danger"
+                        onclick="cancelOrder('${order.id}')">
+
+                        Cancel Order
+
+                    </button>
+
+                `:""}
+
+            </div>
+
+        `).join("")}
+
+    `:`
+
+        <div class="empty">
+
+            <h1>📦</h1>
+
+            <h3>No Orders Yet</h3>
+
+            <p>Your purchases will appear here.</p>
+
+        </div>
+
+    `);
+
+}
+
+function trackOrder(id){
+
+    const order=orders.find(o=>o.id===id);
+
+    if(!order)return;
+
+    showModal("🚚 ORDER TRACKING",`
+
+        <div class="empty">
+
+            <h1>📦</h1>
+
+            <h2>Order #${order.id}</h2>
+
+            <br>
+
+            <span class="status">
+                ${order.status}
+            </span>
+
+            <br><br>
+
+            <p><b>Delivery Address</b></p>
+
+            <p>${order.address}</p>
+
+            <br>
+
+            <p><b>Order Total</b></p>
+
+            <h2 class="price">${money(order.total)}</h2>
+
+            <br>
+
+            <p>
+                This is a demonstration tracking system.
+            </p>
+
+            <button class="primary"
+                onclick="openOrders()">
+
+                Back to Orders
+
+            </button>
+
+        </div>
+
+    `);
+
+}
+
+function cancelOrder(id){
+
+    const order=orders.find(o=>o.id===id);
+
+    if(!order || order.status!=="Order Placed")return;
+
+    if(!confirm("Are you sure you want to cancel this order?"))
+        return;
+
+    order.status="Cancelled";
+
+    order.items.forEach(item=>{
+
+        const product=products.find(p=>p.id===item.id);
+
+        if(product){
+            product.stock+=item.qty;
+        }
+
+    });
+
+    saveData();
+
+    localStorage.setItem("ws_stock",
+        JSON.stringify(products.map(p=>({id:p.id,stock:p.stock}))
+    ));
+
+    toast("Order cancelled!");
+
+    renderProducts();
+
+    openOrders();
+
+}
+
+/* =========================
+   CUSTOMER PROFILE
+========================= */
+
+function openProfile(){
+
+    showModal("👤 MY ACCOUNT",`
+
+        <div class="empty">
+
+            <div style="font-size:55px">👤</div>
+
+            <h2>${profile.name}</h2>
+
+            <p>Wishlist Shop Customer</p>
+
+        </div>
+
+        <div class="field">
+
+            <label>Full Name</label>
+
+            <input id="profileName"
+                value="${profile.name}">
+
+        </div>
+
+        <div class="field">
+
+            <label>Email Address</label>
+
+            <input id="profileEmail"
+                value="${profile.email}">
+
+        </div>
+
+        <div class="field">
+
+            <label>Mobile Number</label>
+
+            <input id="profilePhone"
+                value="${profile.phone}">
+
+        </div>
+
+        <div class="field">
+
+            <label>Address</label>
+
+            <textarea id="profileAddress">${profile.address}</textarea>
+
+        </div>
+
+        <button class="primary"
+            onclick="saveProfile()">
+
+            Save Profile
+
+        </button>
+
+        <button class="secondary"
+            onclick="openOrders()">
+
+            📦 My Orders
+
+        </button>
+
+    `);
+
+}
+
+function saveProfile(){
+
+    profile={
+
+        name:document.getElementById("profileName").value,
+
+        email:document.getElementById("profileEmail").value,
+
+        phone:document.getElementById("profilePhone").value,
+
+        address:document.getElementById("profileAddress").value
+
+    };
+
+    saveData();
+
+    toast("Profile saved!");
+
+    closeModal();
+
+}
+
+/* =========================
+   ADMIN DASHBOARD
+========================= */
+
+function openAdmin(){
+
+    const sales=orders
+    .filter(o=>o.status!=="Cancelled")
+    .reduce((sum,o)=>sum+o.total,0);
+
+    showModal("🛠 ADMIN DASHBOARD",`
+
+        <h3>📊 Store Overview</h3>
+
+        <br>
+
+        <div class="summary">
+
+            <div>
+                <span>Total Products</span>
+                <b>${products.length}</b>
+            </div>
+
+            <div>
+                <span>Total Orders</span>
+                <b>${orders.length}</b>
+            </div>
+
+            <div>
+                <span>Demo Sales</span>
+                <b>${money(sales)}</b>
+            </div>
+
+            <div>
+                <span>Active Orders</span>
+                <b>${orders.filter(o=>o.status!=="Cancelled").length}</b>
+            </div>
+
+        </div>
+
+        <br>
+
+        <h3>📦 Inventory Management</h3>
+
+        ${products.map(product=>`
+
+            <div class="cart-row">
+
+                <img src="${product.image}" alt="">
+
+                <div class="cart-info">
+
+                    <b>${product.name}</b>
+
+                    <p>Stock: ${product.stock}</p>
+
+                </div>
+
+                <button class="secondary"
+                    onclick="adjustStock(${product.id},-1)">
+
+                    −
+
+                </button>
+
+                <button class="primary"
+                    onclick="adjustStock(${product.id},1)">
+
+                    +
+
+                </button>
+
+            </div>
+
+        `).join("")}
+
+        <br>
+
+        <h3>📋 Manage Orders</h3>
+
+        ${orders.map(order=>`
+
+            <div class="order">
+
+                <b>#${order.id}</b>
+
+                <p>${order.customer}</p>
+
+                <p>${money(order.total)}</p>
+
+                <p>Status: ${order.status}</p>
+
+                <select onchange="changeOrderStatus('${order.id}',this.value)">
+
+                    <option ${order.status==="Order Placed"?"selected":""}>
+                        Order Placed
+                    </option>
+
+                    <option ${order.status==="Processing"?"selected":""}>
+                        Processing
+                    </option>
+
+                    <option ${order.status==="Shipped"?"selected":""}>
+                        Shipped
+                    </option>
+
+                    <option ${order.status==="Delivered"?"selected":""}>
+                        Delivered
+                    </option>
+
+                    <option ${order.status==="Cancelled"?"selected":""}>
+                        Cancelled
+                    </option>
+
+                </select>
+
+            </div>
+
+        `).join("")}
+
+        <br>
+
+        <p style="font-size:12px;color:var(--muted)">
+            Local demonstration dashboard.
+            It is not protected by a real administrator login.
+        </p>
+
+    `);
+
+}
+
+function adjustStock(id,amount){
+
+    const product=products.find(p=>p.id===id);
+
+    if(!product)return;
+
+    product.stock=Math.max(0,product.stock+amount);
+
+    localStorage.setItem("ws_stock",
+        JSON.stringify(products.map(p=>({id:p.id,stock:p.stock}))
+    ));
+
+    openAdmin();
+
+    renderProducts();
+
+}
+
+function changeOrderStatus(id,status){
+
+    const order=orders.find(o=>o.id===id);
+
+    if(!order)return;
+
+    order.status=status;
+
+    saveData();
+
+    toast("Order status updated!");
+
+    openAdmin();
+
+}
+
+/* =========================
+   MODAL
+========================= */
+
+function showModal(title,content){
+
+    document.getElementById("modalTitle").textContent=title;
+
+    document.getElementById("modalContent").innerHTML=content;
+
+    document.getElementById("modalBg").classList.add("show");
+
+}
+
+function closeModal(){
+
+    document.getElementById("modalBg").classList.remove("show");
+
+}
+
+document.getElementById("modalBg").addEventListener("click",function(e){
+
+    if(e.target===this){
+        closeModal();
+    }
+
+});
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDark(){
+
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "ws_dark",
+        document.body.classList.contains("dark")
+    );
+
+}
+
+/* =========================
+   FLASH SALE TIMER
+========================= */
+
+let seconds=5*60*60;
+
+setInterval(()=>{
+
+    seconds--;
+
+    if(seconds<=0){
+        seconds=5*60*60;
+    }
+
+    const h=String(Math.floor(seconds/3600)).padStart(2,"0");
+
+    const m=String(Math.floor((seconds%3600)/60)).padStart(2,"0");
+
+    const s=String(seconds%60).padStart(2,"0");
+
+    document.getElementById("countdown").textContent=
+        h+":"+m+":"+s;
+
+},1000);
+
+/* =========================
+   INITIALIZE WEBSITE
+========================= */
+
+// Restore inventory
+
+const savedStock=getData("ws_stock",[]);
+
+savedStock.forEach(item=>{
+
+    const product=products.find(p=>p.id===item.id);
+
+    if(product){
+        product.stock=item.stock;
+    }
+
+});
+
+// Restore dark mode
+
+if(localStorage.getItem("ws_dark")==="true"){
+
+    document.body.classList.add("dark");
+
+}
+
+// Start website
+
+updateBadges();
+
+renderProducts();
+
+</script>
+
+</body>
+</html>
